@@ -1,7 +1,7 @@
 #QUALITY ESTIMATION FOR MACHINE TRANSLATION - SHARED TASK AT WMT2012
 
- Lucia Specia lspecia@gmail.com (University of Sheffield)
- Radu Soricut rsoricut@sdl.com (SDL Language Weaver)
+ Lucia Specia (University of Sheffield)
+ Radu Soricut (SDL Language Weaver)
 
 This shared task will examine automatic methods for estimating machine translation output quality at run-time. Quality estimation is a topic of increasing interest in MT. It aims at providing a quality indicator for unseen translated sentences at various granularity levels. In this shared task, we will focus on sentence-level estimation. Different from MT evaluation, quality estimation systems do not rely on reference translations and are generally addressed using machine learning techniques to predict quality scores. 
 
