@@ -1,0 +1,101 @@
+#QUALITY ESTIMATION FOR MACHINE TRANSLATION - SHARED TASK AT WMT2012
+
+ [Lucia Specia](lspecia@gmail.com) (University of Sheffield)
+ [Radu Soricut](rsoricut@sdl.com) (SDL Language Weaver)
+
+This shared task will examine automatic methods for estimating machine translation output quality at run-time. Quality estimation is a topic of increasing interest in MT. It aims at providing a quality indicator for unseen translated sentences at various granularity levels. In this shared task, we will focus on sentence-level estimation. Different from MT evaluation, quality estimation systems do not rely on reference translations and are generally addressed using machine learning techniques to predict quality scores. 
+
+## Uses
+
+Some interesting uses of sentence-level quality estimation are the following:
+
+
+* Decide whether a given translation is good enough for publishing as is
+* Inform readers of the target language only whether or not they can rely on a translation
+* Filter out sentences that are not good enough for post-editing by professional translators
+* Select the best translation among options from multiple MT and/or translation memory systems
+
+
+
+Efforts in the area are scattered around several groups and, as a consequence, comparing different systems is difficult as there are neither well established baselines, datasets nor standard evaluation metrics. In this shared-task we will provide a first common ground for development and comparison of quality estimation systems: training and test sets, along with evaluation metrics and a baseline system.
+
+## Goals
+
+The goals of the shared quality estimation task are:
+
+* To identify new and effective quality indicators (features)
+* To identify alternative machine learning techniques for the problem
+* To test the suitability of the proposed evaluation metrics for quality estimation systems
+* To establish the state of the art performance in the field and its improvement over the baselines provided
+* To contrast the performance of regression and ranking techniques
+
+#Task Description
+
+This is the first time quality estimation is addressed as a shared task. This year we will provide datasets for a single language pair, text domain and MT system: English-Spanish news texts produced by a phrase-based SMT system (Moses) trained on Europarl and News Commentaries corpora as provided by WMT. As training data, we will provide translations manually annotated for quality in terms of post-editing effort (1-5 scores), together with their source sentences, reference translations, and post-edited translations. Additional training data can be used, as deemed appropriate. As test data, we will provide source and MT-translated sentences only, but the evaluation will be performed against the manual annotations of those translations (obtained in the same fashion as for the training data). Besides the datasets, we will provide a system to extract baseline quality estimation features and resources that can be used to extract additional features (language model, Giza++ tables, etc.).
+
+The manual annotation for both training and test sets was performed by professional translators as a measure of post-editing effort according to the following scoring scheme:
+
+1.  The MT output is **incomprehensible**, with little or no information transferred accurately. It cannot be edited, needs to be translated from scratch.
+2.  About 50% -70% of the MT output needs to be edited. It requires a significant editing effort in order to reach publishable level.
+3.  About 25-50% of the MT output needs to be edited. It contains different errors and mistranslations that need to be corrected.
+4.  About 10-25% of the MT output needs to be edited. It is generally clear and intelligible. 
+5.  The MT output is perfectly clear and intelligible.  It is not necessarily a perfect translation, but requires little to no editing.
+
+Each translation was annotated by 3 different annotators and the average of the 3 annotations is used as the final score (a real number between 1 and 5).
+
+We propose two variations of the task:
+
+## Ranking
+
+Participants will submit a ranking of translations (no ties allowed, for simplicity), without necessarily giving any explicit scores for translations. The ranks are used to rank the test set and divide it into n quantiles (e.g., for n=2, it reflects a separation between the "good" quantile and the "bad" quantile). The evaluation will be performed in terms of DeltaAvgScore[n], the difference between the average score of each quantile and the overall score of the test set. (E.g., for a test set of 500 instances of score 4.0 and 500 instance of score 2.0, for n=2 quantiles and a perfect separation of the two subsets,  DeltaAvgScore[2]=(abs(4.0-3.0)+abs(2.0-3.0))/2=1.0. In contrast, a random separation for n=2 yields DeltaAvgScore[2]=(abs(3.0-3.0)+abs(3.0-3.0))/2=0.0.)  Also, the Spearman corellation will be used as a secondary metric. 
+
+## Scoring
+
+Participants will submit a score for each sentence (in the [1,5] range).The evaluation will be performed in terms of Mean-Average-Error (MAE) and Root-Mean-Squared-Error (RMSE).
+
+While rankings can be generated directly from the sentence-level quality scores, participants can choose to submit to either one or both variations of the task. 
+
+# Submission Format
+
+The source and translations (and reference) sentences will be distributed as plain text files with one segment per line. The output of your software should produce scores for the translations at the segment-level formatted in the following way:
+
+    <METHOD NAME> <SEGMENT NUMBER> <SEGMENT SCORE> <SEGMENT RANK>
+
+Where:
+
+* METHOD NAME is the name of your quality estimation method.
+* SEGMENT NUMBER is the line number of the plain text translation file you are scoring/ranking.
+* SEGMENT SCORE is the score for the particular segment - assign all 0's to it if you are only submiting ranking results.
+* SEGMENT SCORE is the ranking of the particular segment - assign all 0's to it if you are only submiting scores.
+
+Each field should be delimited by a single tab character.
+
+# IMPORTANT DATES
+
+Release of training data + baseline feature extractor 	January 16, 2012
+Release of test set 	February 29, 2012
+Submission deadline for quality estimation task 	March 7, 2012
+Paper submission deadline 	April 6, 2012
+
+# Files in this distribution
+
+* Training set
+* Baseline feature extraction system and resources
+* Extra resources (corpora, SMT system-dependent, etc.)
+* Test set 
+
+# ORGANIZERS
+
+[Lucia Specia](lspecia@gmail.com) (University of Sheffield)
+[Radu Soricut](rsoricut@sdl.com) (SDL Language Weaver)
+
+
+# Other Requirements
+
+You are invited to submit a short paper (4 to 6 pages) describing your quality estimation method. You are not required to submit a paper if you do not want to. If you don't, we ask that you give an appropriate reference describing your method that we can cite in the overview paper.
+
+We encourage individuals who are submitting research papers to submit entries in the shared-task using the training resources provided by this workshop (in addition to potential entries that may use other training resources), so that their experiments can be repeated by others using these publicly available resources.
+
+# CONTACT
+
+For questions, comments, etc. please send email to Lucia Specia lspecia@gmail.com and Radu Soricut rsoricut@sdl.com.
