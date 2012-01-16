@@ -15,8 +15,6 @@ Some interesting uses of sentence-level quality estimation are the following:
 * Filter out sentences that are not good enough for post-editing by professional translators
 * Select the best translation among options from multiple MT and/or translation memory systems
 
-
-
 Efforts in the area are scattered around several groups and, as a consequence, comparing different systems is difficult as there are neither well established baselines, datasets nor standard evaluation metrics. In this shared-task we will provide a first common ground for development and comparison of quality estimation systems: training and test sets, along with evaluation metrics and a baseline system.
 
 ## Goals
@@ -72,10 +70,10 @@ Each field should be delimited by a single tab character.
 
 # IMPORTANT DATES
 
-Release of training data + baseline feature extractor 	January 16, 2012
-Release of test set 	February 29, 2012
-Submission deadline for quality estimation task 	March 7, 2012
-Paper submission deadline 	April 6, 2012
+* Release of training data + baseline feature extractor: **January 16, 2012**
+* Release of test set: **February 29, 2012**
+* Submission deadline for quality estimation task: **March 7, 2012**
+* Paper submission deadline: **April 6, 2012**
 
 # Files in this distribution
 
