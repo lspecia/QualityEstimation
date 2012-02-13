@@ -45,13 +45,14 @@ We propose two variations of the task:
 
 ## Ranking
 
-Participants will submit a ranking of translations (no ties allowed, for simplicity), without necessarily giving any explicit scores for translations. The ranks are used to rank the test set and divide it into n quantiles (e.g., for n=2, it reflects a separation between the "good" quantile and the "bad" quantile). The evaluation will be performed in terms of DeltaAvgScore[n], the difference between the average score of each quantile and the overall score of the test set. (E.g., for a test set of 500 instances of score 4.0 and 500 instance of score 2.0, for n=2 quantiles and a perfect separation of the two subsets,  DeltaAvgScore[2]=(abs(4.0-3.0)+abs(2.0-3.0))/2=1.0. In contrast, a random separation for n=2 yields DeltaAvgScore[2]=(abs(3.0-3.0)+abs(3.0-3.0))/2=0.0.)  Also, the Spearman corellation will be used as a secondary metric. 
+Participants will submit a ranking of translations (no ties allowed, for simplicity), without necessarily giving any explicit scores for translations. The ranks should be represented as indexes 1 to N (where N is the number of lines in the test; 1 means highest quality, N means lowest quality). These ranks are used to rank the test set and then divide it into n quantiles (e.g., for n=2, it reflects a separation between the "high-quality" quantile and the "low-quality" quantile). The evaluation will be performed in terms of DeltaAvg, the average difference over n between the scores of the top quantiles and the overall score of the test set. 
+(E.g., for a test set of 500 instances of score 4.0 and 500 instance of score 2.0, for a perfect separation of the two subsets,  DeltaAvg[2]=4.0-3.0=1.0 (for n=2 quantiles); DeltaAvg is the average over DeltaAvg[2], DeltaAvg[3], etc., which yields a value of 0.77. In contrast, a random separation yields DeltaAvg[2]=3.0-3.0=0.0 for n=2, and an average value over n of DeltaAvg=0.0). Also, the Spearman corellation will be used as a secondary metric. 
 
 ## Scoring
 
-Participants will submit a score for each sentence (in the [1,5] range).The evaluation will be performed in terms of Mean-Average-Error (MAE) and Root-Mean-Squared-Error (RMSE).
+Participants will submit a score for each sentence, expected to be in the [1,5] range. The evaluation will be performed in terms of Mean-Average-Error (MAE) and Root-Mean-Squared-Error (RMSE).
 
-While rankings can be generated directly from the sentence-level quality scores, participants can choose to submit to either one or both variations of the task. 
+While rankings can sometimes be generated directly from the sentence-level quality scores (modulo ties), participants can choose to submit to either one or both variations of the task. Please note that the evaluation script will not attempt to explicitly derive rankings from the scores. 
 
 # Submission Format
 
