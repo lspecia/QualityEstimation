@@ -1,5 +1,23 @@
-I number of resources were made available (SMT training corpus, phrase-table, language models, Giza files, etc). You can download them from: 
+A number of resources were made available (SMT training corpus, phrase-table, language models, Giza files, etc). You can download them from: 
 
 http://dl.dropbox.com/u/6447503/resources.tbz
+
+Errata: the description of the language model was partially incorrect. Where it says:
+
+-- lm.europarl-interpolated-nc.es -- 5-gram LM generated from the interpolation of the two target corpora (europarl-v5 & news-commentaries10) after tokenization and truecasing (LM used by the SMT system)
+
+it should be:
+
+-- lm.europarl-interpolated-nc.es -- 5-gram LM generated from the interpolation of the three target corpora (europarl-v5, news-commentaries10 (both the target side of the parallel corpus) and news monolingual 10 - all from the WMT2010 distribution) after tokenization and truecasing (LM used by the SMT system)
+
+
+
+One extra resource - the reordering model - was added: 
+
+http://dl.dropbox.com/u/49398679/wmt12/reordering-table.wbe-msd-bidirectional-fe.tbz
+
+
+
+
 
 
