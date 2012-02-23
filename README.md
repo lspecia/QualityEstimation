@@ -46,7 +46,7 @@ We propose two variations of the task:
 ## Ranking
 
 Participants will submit a ranking of translations (no ties allowed, for simplicity), without necessarily giving any explicit scores for translations. The ranks should be represented as indexes 1 to N (where N is the number of lines in the test; 1 means highest quality, N means lowest quality). These ranks are used to rank the test set and then divide it into n quantiles (e.g., for n=2, it reflects a separation between the "high-quality" quantile and the "low-quality" quantile). The evaluation will be performed in terms of DeltaAvg, the average difference over n between the scores of the top quantiles and the overall score of the test set. 
-(E.g., for a test set of 500 instances of score 4.0 and 500 instance of score 2.0, for a perfect separation of the two subsets,  DeltaAvg[2]=4.0-3.0=1.0 (for n=2 quantiles); DeltaAvg is the average over DeltaAvg[2], DeltaAvg[3], etc., which yields a value of 0.77. In contrast, a random separation yields DeltaAvg[2]=3.0-3.0=0.0 for n=2, and an average value over n of DeltaAvg=0.0). Also, the Spearman corellation will be used as a secondary metric. 
+(E.g., for a test set of 500 instances of score 4.0 and 500 instance of score 2.0, for a perfect separation of the two subsets,  DeltaAvg[2]=4.0-3.0=1.0 (for n=2 quantiles); DeltaAvg is the average over DeltaAvg[2], DeltaAvg[3], etc., which yields a value of 0.77 for this particular case. In contrast, a random separation yields DeltaAvg[2]=3.0-3.0=0.0 for n=2, and an average value over n of DeltaAvg=0.0). Also, the Spearman corellation will be used as a secondary metric. 
 
 ## Scoring
 
@@ -62,12 +62,16 @@ The source and translations (and reference) sentences will be distributed as pla
 
 Where:
 
-* METHOD NAME is the name of your quality estimation method.
+* METHOD NAME is the name of your quality estimation method (please see "Submission Requirements" for details).
 * SEGMENT NUMBER is the line number of the plain text translation file you are scoring/ranking.
 * SEGMENT SCORE is the score for the particular segment - assign all 0's to it if you are only submiting ranking results.
 * SEGMENT SCORE is the ranking of the particular segment - assign all 0's to it if you are only submiting scores.
 
 Each field should be delimited by a single tab character.
+
+# Submission Requirements
+
+We require that each participating team submits at most 2 separate submissions (consisting of either or both variations of the task), sent via email to the organizers (Lucia Specia <lspecia@gmail.com> and Radu Soricut <rsoricut@sdl.com>). Please use the <METHOD NAME> field in the submission format to indicate the name of the team and a descriptor for the method. For instance, a submission from team ABC using method "BestAlg2012" should have the <METHOD NAME> field in the submission as "ABC_BestAlg2012". For reasons that have to do with the ease of processing of a large estimated number of entries, the official scoring script (available with the official distribution of resources) will enforce this format for the <METHOD NAME> field as: <TEAMNAME>_<DESCRIPTION> (please make sure the official script parses your <METHOD NAME> field without complaining before you submit your official submission(s)). 
 
 # IMPORTANT DATES
 
