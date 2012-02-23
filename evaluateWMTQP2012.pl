@@ -5,7 +5,7 @@
 #                         SDL International, Language Weaver
 #                         All rights reserved.
 #
-# Version 1.0
+# Version 1.1
 # For research or educational purposes only.  Do not redistribute.  
 # 
 # Expected Input
@@ -24,6 +24,11 @@
 #   are RMSE [lower is better], LargeErrPerc (percentage of errors>=1.0) [lower is better], 
 #   and SmallErrPerc (percentage of errors<=0.1) [higher is better].
 #
+# History:
+# - 02/23/2012: v1.1 adds the following:
+#    * enforces <METHOD NAME> field to be parsed as <TEAMNAME>_<DESCRIPTION>
+#    * reports predicted interval
+# - 02/06/2012: v1.0 first release 
 ##########################################################################################
 
 use strict;
@@ -49,7 +54,7 @@ for(my $i=1; $i<=$#ARGV; $i++){
 
     my $AvgDelta = avgDelta(\%cHash);
     my $Rho = spearman(\%cHash);
-    my ($MAE, $RMSE, $ERRSMP, $ERRLGP) = MAE_RMSE(\%cHash);
+    my ($MAE, $RMSE, $ERRSMP, $ERRLGP, $MINinterv, $MAXinterv) = MAE_RMSE(\%cHash);
     my $method = $cHash{"1"}{"method"};
 
     # Ranking results
@@ -60,7 +65,7 @@ for(my $i=1; $i<=$#ARGV; $i++){
 
     # Scoring results
     if( $MAE>-$INF ){
-	printf "%30s\t:: Scoring: (primary) MeanAvgErr = %.2f\t (secondary) RootMeanSqrErr = %.2f\t LargeErrPerc = %5.1f\t SmallErrPerc = %5.1f\n", $method, $MAE, $RMSE, $ERRLGP, $ERRSMP;
+	printf "%30s\t:: Scoring: (primary) MeanAvgErr = %.2f\t (secondary) RootMeanSqrErr = %.2f\t LargeErrPerc = %5.1f\t SmallErrPerc = %5.1f\t Interval = [%.1f-%.1f]\n", $method, $MAE, $RMSE, $ERRLGP, $ERRSMP, $MINinterv, $MAXinterv;
     }
     else{ printf "%30s\t:: Scoring: (primary) MeanAvgErr = %4s\t (secondary) RootMeanSqrErr = %4s\t LargeErrPerc = %5s\t SmallErrPerc = %5s\n", $method, "--", "--", "--", "--"; }
 }
@@ -71,6 +76,7 @@ sub readInput{
     my %hash = ();
     my ($minSegId,$maxSegId) = ($INF,0);
     my ($minRank,$maxRank) = ($INF,0);
+    my $team = "";
     open(F, $fileName) or die "Error: cannot open file $fileName\n";
     while(my $line=<F>){
 	$line =~ s/[\015\012]*$//; # line-clean
@@ -81,6 +87,20 @@ sub readInput{
 	    return %hash; 
 	}
 	my ($method, $segId) = ( $line[0], $line[1] );
+	if( $method =~ /^(.*?)_(.*)$/ ){
+	    my $cteam = $1;
+	    if( !$team ){ $team = $cteam; }
+	    elsif( $team ne $cteam ){
+		warn "Warning: line expected to have <METHOD NAME> team consistently the same: '$line' (file will be skipped)\n";
+		close(F);
+		return %hash; 
+	    }
+	}
+	else{ 
+	    warn "Warning: line expected to have <METHOD NAME> field as <TEAMNAME>_<DESCRIPTION>: '$line' (file will be skipped)\n";
+	    close(F);
+	    return %hash; 
+	}
 	if( $hash{$segId} ){ die "Error in $fileName: segment $segId not uniq\n"; }
 	my ($score, $rank) = ( $line[2], $line[3] );
 	$hash{$segId}{"method"} = $method;
@@ -167,7 +187,10 @@ sub MAE_RMSE{
 
     my $n = scalar(keys %{$chash});
     my ($ESUM,$SSUM,$zeros,$errSm,$errLg) = (0,0,0,0,0);
+    my ($minInterv, $maxInterv) = ($INF,-$INF);
     for(my $i=1; $i<=$n; $i++){
+	if( $minInterv>$chash->{$i}{"score"} ){ $minInterv=$chash->{$i}{"score"}; }
+	if( $maxInterv<$chash->{$i}{"score"} ){ $maxInterv=$chash->{$i}{"score"}; }
 	$zeros += $chash->{$i}{"score"}==0 ? 1 : 0;
 	my $err = $chash->{$i}{"score"}-$chash->{$i}{"refScore"};
 	my $aerr = abs($err);
@@ -185,5 +208,5 @@ sub MAE_RMSE{
 
     if( $zeros==$n ){ $MAE = $RMSE = -$INF; }
 
-    return ($MAE,$RMSE,$ERRSMP,$ERRLGP);
+    return ($MAE,$RMSE,$ERRSMP,$ERRLGP,$minInterv,$maxInterv);
 }
