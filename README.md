@@ -77,8 +77,8 @@ We require that each participating team submits at most 2 separate submissions (
 
 * Release of training data + baseline feature extractor: **January 16, 2012**
 * Release of test set: **February 29, 2012**
-* Submission deadline for quality estimation task: **March 7, 2012**
-* Paper submission deadline: **April 6, 2012**
+* Submission deadline for quality estimation task: **March 9, 2012 (11:59pm PST)**
+* Paper submission deadline: **April 6, 2012 (11:59pm PST)**
 
 # Files in this distribution
 
