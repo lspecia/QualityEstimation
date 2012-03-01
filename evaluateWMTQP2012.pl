@@ -41,7 +41,7 @@ my $ERRLARGE_T = 1.0;
 
 if( $#ARGV<1 ){ die "Usage: $0 ref-file input-file(s)\n"; }
 
-warn "$0, version 1.0\n";
+warn "$0, version 1.1\n";
 
 my $refFile = $ARGV[0];
 my %rHash = readInput($refFile, $refFile);
@@ -192,7 +192,7 @@ sub MAE_RMSE{
 	if( $minInterv>$chash->{$i}{"score"} ){ $minInterv=$chash->{$i}{"score"}; }
 	if( $maxInterv<$chash->{$i}{"score"} ){ $maxInterv=$chash->{$i}{"score"}; }
 	$zeros += $chash->{$i}{"score"}==0 ? 1 : 0;
-	my $err = $chash->{$i}{"score"}-$chash->{$i}{"refScore"};
+	my $err = sprintf("%.2f",$chash->{$i}{"score"}-$chash->{$i}{"refScore"});
 	my $aerr = abs($err);
 	if( $aerr<=$ERRSMALL_T ){ $errSm += 1; }
 	if( $aerr>=$ERRLARGE_T ){ $errLg += 1; }
