@@ -82,10 +82,12 @@ We require that each participating team submits at most 2 separate submissions (
 
 # Files in this distribution
 
-* Training set
+* Training set: source (source.eng), system translation (target_system.spa)
+* Training set annotations: post-edited system translation (target_postedited.spa), human-translated reference (target_reference.spa), official weighted-average effort score (target_system.effort), individual effort-scores (target_system.effort3scores), individual effort-weights (target_system.effort3weights)
 * Baseline feature extraction system and resources
 * Extra resources (corpora, SMT system-dependent, etc.)
-* Test set 
+* Test set: source (source.eng), system translation (target_system.spa)
+* Test set annotations: post-edited system translation (target_postedited.spa), human-translated reference (target_reference.spa), official weighted-average effort score (target_system.effort), individual effort-scores (target_system.effort3scores), individual effort-weights (target_system.effort3weights)
 
 # Other Requirements
 
